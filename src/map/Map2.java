@@ -11,6 +11,7 @@ public class Map2 {
         map.put("b", "dirt");
 
         String[] mas1 = {"ab", "ac", "dc", "ad"};
+        String[] mas2 = {"a", "c", "d", "a"};
 
 //        System.out.println(word0(mas1));
 //        System.out.println(wordLen(mas1));
@@ -18,7 +19,7 @@ public class Map2 {
 //        System.out.println(wordCount(mas1));
 //        System.out.println(firstChar(mas1));
 
-        System.out.println(wordAppend(mas1));
+        System.out.println(wordAppend(mas2));
 
 //        System.out.println(wordMultiple(mas1));
 //        System.out.println(allSwap(mas1));
@@ -73,7 +74,15 @@ public class Map2 {
 
     private static String wordAppend(String[] strings) {
         String tmp = "";
-
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < strings.length; i++) {
+            if (map.containsKey(strings[i])) {
+                map.merge(strings[i], 1, (x, y) -> x + y);
+                if (map.get(strings[i])%2==0)
+                    tmp+=strings[i];
+            }
+            else map.put(strings[i],1);
+        }
         return tmp;
     }
 

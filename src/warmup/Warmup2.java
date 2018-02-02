@@ -7,7 +7,7 @@ public class Warmup2 {
 //        System.out.println(stringTimes("slribnb", 5));
 //        System.out.println(countXX("cxxxx"));
 //        System.out.println(doubleX("aaaax"));
-        System.out.println(stringBits("aaaax"));
+        System.out.println(stringBits("Hello"));
 //        System.out.println(stringSplosion("Code"));
 //        System.out.println(last2("axxxaaxx"));
 //        System.out.println(arrayCount9(new int[]{1,2,9,9}));
@@ -143,7 +143,16 @@ public class Warmup2 {
     }
 
     private static Object stringBits(String str) {
-        return str;
+        String tmp = "";
+
+        if (str.length()>1) {
+            for (int i = 1; i < str.length(); i+=2) {
+                tmp+=str.charAt(i-1);
+            }
+        }
+        if (str.length()%2==1)
+            tmp+=str.charAt(str.length()-1);
+        return tmp;
     }
 
     private static boolean doubleX(String str) {

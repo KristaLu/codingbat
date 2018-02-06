@@ -5,27 +5,67 @@ import java.util.*;
 public class Array3 {
     public static void main(String[] args) {
 
-        int[] mas1 = {2, 2, 2, 2, 4};
+        int[] mas1 = {1, 2, 2, 3, 4, 4};
         int[] mas2 = {2,4};
 
-        System.out.println(maxSpan(mas1));
+//        System.out.println(maxSpan(mas1));
 //        System.out.println(fix34(mas1));
 //        System.out.println(fix45(mas1));
 //        System.out.println(canBalance(mas1));
 //        System.out.println(linearIn(mas1, mas2));
 //        System.out.println(squareUp(3));
-        System.out.println(seriesUp(3));
+//        System.out.println(seriesUp(3));
+//        System.out.println(maxMirror(mas1));
+        System.out.println(countClumps(mas1));
 
 
 
 
     }
 
+    private static int countClumps(int[] nums) {
+        int count = 0;
+        boolean flag = false;
+
+        for (int i = 0; i < nums.length-1; i++) {
+            if (nums[i]==nums[i+1] && !flag) {
+                flag = true;
+                count++;
+            }
+            else if (nums[i]!=nums[i+1])
+                flag = false;
+
+        }
+        return count;
+    }
+
+    private static int maxMirror(int[] nums) {
+        int count = 0;
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            count = 0;
+            for (int j = nums.length - 1; i + count < nums.length && j >= 0; j--) {
+                if (nums[i + count] == nums[j])
+                    count++;
+                else{
+                    if (count > 0){
+                        max=Math.max(count,max);
+                        count=0;
+                    }
+                }
+            }
+            max = Math.max(count,max);
+        }
+
+        return max;
+    }
+
     private static int[] seriesUp(int n) {
         int[] tmp = new int[n*(n+1)/2];
+        int k = 0;
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= i; j++) {
-                tmp[i*n-j]=j;
+                tmp[k++]=j;
             }
         }
         return tmp;
@@ -104,16 +144,26 @@ public class Array3 {
     }
 
     private static int maxSpan(int[] nums) {
-        int idx = 0;
+
+        List<Integer> list = new ArrayList<>();
         if (nums.length>1) {
-            int max = nums[0];
             for (int i = 0; i < nums.length; i++) {
-                if (max <= nums[i]) {
-                    max = nums[i];
-                    idx = i;
+                for (int j = nums.length-1; j >=0 ; j--) {
+                    if (nums[i]==nums[j]){
+                        if (i==0){
+                            list.add(j+1);
+                        }
+                        else list.add(j);
+                        break;
+                    }
                 }
             }
+            Collections.sort(list);
+            return list.get(list.size()-1);
         }
-        return idx;
+        if (nums.length==1)
+            return 1;
+
+        return 0;
     }
 }
